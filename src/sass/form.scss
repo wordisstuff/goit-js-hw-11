@@ -1,0 +1,16 @@
+.search-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 28px;
+    padding-bottom: 28px;
+    background-color: rgba(70, 178, 210, 0.91);
+}
+
+.search-form input {
+    height: 48px;
+}
+
+.search-form button {
+    height: 48px;
+}
