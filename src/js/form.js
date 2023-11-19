@@ -16,11 +16,9 @@ const target = document.querySelector('.js-guard');
 let page = 1;
 let options = {
     root: null,
-    rootMargin: "200px",
+    rootMargin: "300px",
     threshold: 1.0,
 }
-
-
 
 const URL = "https://pixabay.com/api/";
 const Key = '40722246-cba5c9479c54166dac0d37fff';
@@ -28,7 +26,7 @@ const Key = '40722246-cba5c9479c54166dac0d37fff';
 const per_page = 40;
 form.addEventListener('submit', onForm);
 let insert;
-
+let itemCount;
 async function onForm(evnt) {
     evnt.preventDefault();
     insert = evnt.currentTarget.elements.searchQuery.value.trim();
@@ -37,6 +35,7 @@ async function onForm(evnt) {
         gallery.innerHTML = "";
         page = 1;
         markupGalerry(itemArr);
+        itemCount = data.hits.length;
         simplelightbox.refresh();
         observer.observe(target)
     })
@@ -52,7 +51,6 @@ async function fetchItem(insert, page) {
             return resp.json()
         }))
 };
-
 let observer = new IntersectionObserver(onLoad, options)
 function onLoad(entris, observer) {
     entris.forEach(entri => {
@@ -61,8 +59,9 @@ function onLoad(entris, observer) {
             fetchItem(insert, page).then(data => {
                 let itemArr = data.hits;
                 markupGalerry(itemArr);
+                itemCount += data.hits.length;
                 simplelightbox.refresh();
-                if (page === 13) {
+                if (itemCount >= data.totalHits) {
                     observer.unobserve(target)
                     Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
                 }
