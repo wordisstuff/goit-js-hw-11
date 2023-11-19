@@ -37,6 +37,7 @@ async function onForm(evnt) {
         gallery.innerHTML = "";
         page = 1;
         markupGalerry(itemArr);
+        simplelightbox.refresh();
         observer.observe(target)
     })
         .catch(err => console.log(err))
@@ -60,13 +61,11 @@ function onLoad(entris, observer) {
             fetchItem(insert, page).then(data => {
                 let itemArr = data.hits;
                 markupGalerry(itemArr);
-                console.log(itemArr);
                 simplelightbox.refresh();
                 if (page === 13) {
                     observer.unobserve(target)
                     Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
                 }
-                console.log(page);
             })
                 .catch(err => Notiflix.Notify.failure(err))
         }
