@@ -1,6 +1,14 @@
 // import axios from "axios";
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
+
+import Notiflix from 'notiflix';
+
 import { markupGalerry } from './gallery';
 import { gallery } from './gallery';
+
+const simplelightbox = new SimpleLightbox('.gallery a', { captionsData: 'alt', captionDelay: 250 });
+
 
 const form = document.querySelector('.search-form');
 
@@ -27,9 +35,9 @@ async function onForm(evnt) {
     return await fetchItem(insert).then(data => {
         let itemArr = data.hits;
         gallery.innerHTML = "";
+        page = 1;
         markupGalerry(itemArr);
         observer.observe(target)
-        console.log("object");
     })
         .catch(err => console.log(err))
 };
@@ -52,10 +60,15 @@ function onLoad(entris, observer) {
             fetchItem(insert, page).then(data => {
                 let itemArr = data.hits;
                 markupGalerry(itemArr);
-                observer.observe(target)
-                console.log("object");
+                console.log(itemArr);
+                simplelightbox.refresh();
+                if (page === 13) {
+                    observer.unobserve(target)
+                    Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
+                }
+                console.log(page);
             })
-                .catch(err => console.log(err))
+                .catch(err => Notiflix.Notify.failure(err))
         }
     });
 }
