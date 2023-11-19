@@ -2,15 +2,24 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    align-items: center;
     background-color: goldenrod;
     width: 100vw;
-    height: 100vw;
-    padding-top: 28px;
+    height: 100%;
 }
 
-;
+.gallery_link {
+    padding-top: 28px;
+    text-decoration: none;
+    overflow: hidden;
+    border: none;
+}
 
 .photo-card {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     height: 450px;
 }
 
@@ -18,6 +27,26 @@
     display: flex;
     align-items: end;
     justify-content: space-around;
+    text-decoration: none;
+}
 
+.info-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: rgb(54, 50, 44);
 
+}
+
+.info-item :not(:last-child) {
+    padding-right: 18px;
+}
+
+.span-info {
+    color: rgb(21, 17, 13);
+}
+
+.item-img {
+    border-radius: 25px;
 }
